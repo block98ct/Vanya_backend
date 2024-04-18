@@ -1,0 +1,37 @@
+{
+  "name": "vanya_backend",
+  "version": "1.0.0",
+  "description": "backend of vanya backend",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js"
+  },
+  "keywords": [
+    "javascript",
+    "solidity",
+    "node"
+  ],
+  "author": "Palash",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "ethers": "^6.11.1",
+    "express": "^4.18.3",
+    "jsonwebtoken": "^9.0.2",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.9.2",
+    "sequelize": "^6.37.1",
+    "socket.io": "^4.7.5",
+    "web3": "^4.5.0"
+  },
+  "devDependencies": {
+    "@types/mysql": "^2.15.25"
+  }
+}
