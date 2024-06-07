@@ -11,7 +11,7 @@ export const options = {
 };
 
 
-export const generateAccessAndRefreshToken = async (userId) => {
+export const generateAccessAndRefreshToken = async (userId) => {   
   try {
     // Assuming you have the User model imported
     const user = await User.findByPk(userId);
@@ -21,11 +21,8 @@ export const generateAccessAndRefreshToken = async (userId) => {
       
     }
 
-    // Generate refresh token
-    // const refreshToken = await user.generateRefreshToken();
-
     // Generate access token
-    const accessToken = await user.generateAccessToken();
+    const accessToken = await user.generateAccessToken(); 
    // await user.update({ refreshToken });
 
     return {  accessToken };
@@ -34,12 +31,6 @@ export const generateAccessAndRefreshToken = async (userId) => {
     throw new ApiError(500, "Something went wrong while generating tokens");
   }
 };
-
-
-
-
-
-
 
 
 
@@ -115,16 +106,6 @@ export const userRegisterHandle = async (req, res) => {
 };
 
 
-
-
-
-
-
-
-
-
-
-
 export const userLoginHandle = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -169,7 +150,7 @@ export const userLoginHandle = async (req, res) => {
 
     res
       .status(201)
-      .cookie("accessToken", accessToken, options)
+      .cookie("accessToken", accessToken)
       .json(
         new ApiResponse(
           200,
@@ -186,36 +167,8 @@ export const userLoginHandle = async (req, res) => {
   }
 };
 
-
-
-
-
-
-
-
-export const userLogoutHandle = async (req, res) => {
-  try {
-    const user = await User.findByPk(req.user.id)
-   // await user.update({ refreshToken: null });
-
-    res
-      .status(201)
-      .clearCookie("accessToken", options)
-      .json(new ApiResponse(200, {}, "user loggout successfully"));
-  } catch (error) {
-    console.log(`error while log out user ${error}`);
-    res.status(500).json(new ApiResponse(500, {}, "Internal server error", false));
-  }
-};
-
-
-
-
-
-
-
 export const  updateUserPasswordHandle= async(req, res)=>{
-  try {
+  // try {
     const {oldPassword, newPassword, confirmPassword} = req.body
     if (!oldPassword || !newPassword || !confirmPassword) {
        throw new ApiError(409, "All fields are required")
@@ -250,14 +203,14 @@ export const  updateUserPasswordHandle= async(req, res)=>{
 
   
 
-  } catch (error) {
-    res.status(200).json({
-      sucess: false,
-      message: "user password not updated",
-    });
-    console.log(error)
+  // } catch (error) {
+  //   res.status(200).json({
+  //     sucess: false,
+  //     message: "user password not updated",
+  //   });
+  //   console.log(error)
     
-  }
+  // }
 
 }
 

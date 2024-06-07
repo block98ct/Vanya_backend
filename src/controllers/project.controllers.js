@@ -1,121 +1,7 @@
-import ProjectData from "../modals/projectData.modal.js";
 import contractAddress from "../modals/contractAddress.modal.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 
-export const addProjectDataHandle = async (req, res) => {
-  try {
-    const {
-      latitude,
-      longitude,
-      projectAddress,
-      details,
-      area,
-      ndvi,
-      carbon,
-      npar,
-      par,
-      kmlLink,
-      geoJsonLink,
-      projectDescription,
-      firstImageLink,
-      landDeveloper,
-      projectStoryImage,
-      projectType,
-      carbonCredits,
-      amountWorth,
-      productName,
-    } = req.body;
-
-    if (
-      latitude &&
-      longitude &&
-      projectAddress &&
-      details &&
-      area &&
-      ndvi &&
-      carbon &&
-      npar &&
-      par &&
-      kmlLink &&
-      geoJsonLink &&
-      projectDescription &&
-      firstImageLink &&
-      landDeveloper &&
-      projectStoryImage &&
-      projectType &&
-      carbonCredits &&
-      amountWorth &&
-      productName
-    ) {
-      // All fields are not empty
-    } else {
-      return res
-        .status(201)
-        .json(
-          new ApiResponse(
-            200,
-            newProjectdata,
-            "successfully added project data",
-            false
-          )
-        );
-    }
-
-    const newProjectdata = await ProjectData.create({
-      latitude,
-      longitude,
-      projectAddress,
-      details,
-      area,
-      ndvi,
-      carbon,
-      npar,
-      par,
-      kmlLink,
-      geoJsonLink,
-      projectDescription,
-      firstImageLink,
-      landDeveloper,
-      projectStoryImage,
-      projectType,
-      carbonCredits,
-      amountWorth,
-      productName,
-    });
-
-    if (!newProjectdata) {
-      // throw new ApiError(
-      //   409,
-      //   "something went wrong while adding new project data "
-      // );
-
-      return res
-        .status(201)
-        .json(
-          new ApiResponse(
-            200,
-            {},
-            "something went wrong while adding new project data ",
-            false
-          )
-        );
-    }
-
-    return res
-      .status(201)
-      .json(
-        new ApiResponse(200, newProjectdata, "successfully added project data")
-      );
-  } catch (error) {
-    console.log(`error while adding project data  ${error}`);
-    res.status(500).json({
-      sucess: false,
-      message: "Project data  not added ",
-      error: error,
-    })
-  }
-};
 
 
 
@@ -154,3 +40,7 @@ export const saveContractAddressHandle = async (req, res) => {
     });
   }
 };
+
+
+
+

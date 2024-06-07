@@ -1,6 +1,9 @@
+//process.loadEnvFile()
+
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors"
+
 import cookieParser from "cookie-parser";
 import { JSON_LIMIT } from "./constants.js";
 
@@ -9,11 +12,8 @@ import { JSON_LIMIT } from "./constants.js";
 const app = express();
 const PORT = process.env.PORT 
 
+
 // console.log(PORT);
-
-
-
-
 
 app.use(cors({
      origin: process.env.CORS_ORIGIN,
@@ -32,10 +32,9 @@ app.get("/", (req, res)=>{
 
 })
 
-
 // PROJECT CONTRACT ROUTES
 import projectContractRoutes from "./routes/projectContract.routes.js";
-app.use("/api/v1/project/contract/", projectContractRoutes)
+app.use("/api/v1/projectContract/", projectContractRoutes)
 
 
 // PROJECT ROUTES
@@ -48,21 +47,16 @@ app.use("/api/v1/project/", projectRoutes)
 import userRoutes from "./routes/user.routes.js"
 app.use("/api/v1/user/", userRoutes)
 
-
-
-// ADMIN ROUTES
-import adminRoutes from "./routes/admin.routes.js"
-app.use('/api/v1/admin', adminRoutes)    
-
+  
 
 // STORAGE CONTRACT ROUTES
 import storageContractRoutes from "./routes/storageContract.routes.js";
-app.use("/api/v1/storage/", storageContractRoutes)
+app.use("/api/v1/storageContract/", storageContractRoutes)
 
 
 
 // APP IS LISTENING ON PORT 
-app.listen(PORT,"192.168.29.216",()=>{
+app.listen(PORT,"192.168.1.19",()=>{
     console.log(`the server is running at port ${PORT}`)
     //192.168.1.29"
 })

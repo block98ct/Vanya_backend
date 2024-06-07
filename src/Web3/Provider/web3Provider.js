@@ -4,10 +4,8 @@ import PROJECT_SMART_CONTRACT_ABI from "../ABI/project.json" assert { type: "jso
 import STORAGE_SMART_CONTRACT_ABI   from "../ABI/storage.json" assert { type: "json" };
 
 
-// const PROJECT_SMART_CONTRACT_ADDRESS = process.env.PROJECT_SMART_CONTRACT_ADDRESS
-
 const STORAGE_SMART_CONTRACT_ADDRESS = process.env.STORAGE_SMART_CONTRACT_ADDRESS
-
+// const PROJECT_SMART_CONTRACT_ADDRESS = process.env.PROJECT_SMART_CONTRACT_ADDRESS
 
 export const getWeb3Provider = () => {
   return new Promise( (resolve, reject) => { 
