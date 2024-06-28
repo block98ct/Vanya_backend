@@ -10,6 +10,8 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { ethers } from "ethers";
 
 import PROJECT_SMART_CONTRACT_ABI from "../Web3/ABI/project.json" assert { type: "json" };
+import STORAGE_SMART_CONTRACT_ABI from "../Web3/ABI/storage.json" assert { type: "json" };
+
 
 
 export const getOwnerAddressHandle = async (req, res) => {
@@ -129,7 +131,7 @@ export const getSymbolHandle = async (req, res) => {
   }
 };
 
-const contractInstance = async (privateKey, address) => {
+const contractInstance = async (privateKey, address, abi) => {
   try {
     const wallet = new ethers.Wallet(privateKey);
     const provider = new ethers.JsonRpcProvider(
@@ -138,7 +140,7 @@ const contractInstance = async (privateKey, address) => {
     const connectedWallet = wallet.connect(provider);
     const contract = new ethers.Contract(
       address,
-      PROJECT_SMART_CONTRACT_ABI,
+      abi,
       connectedWallet
     );
 
@@ -170,30 +172,29 @@ export const addProjectDataHandle = async (req, res) => {
 
     console.log(req.body);
 
-    if (
-      [
-        latitude,
-        longitude,
-        projectAddress,
-        area,
-        ndvi,
-        carbon,
-        npar,
-        par,
-        kmlLink,
-        geoJsonLink,
-        projectType,
-        carbonCredits,
-        amountWorth,
-        address,
-        privateKey,
-      ].some((field) => field?.trim() === "")
-    ) {
-      throw new ApiError(400, "All fields are required");
-    }
+    // if (
+    //   [
+    //     latitude,
+    //     longitude,
+    //     projectAddress,
+    //     area,
+    //     ndvi,
+    //     carbon,
+    //     npar,
+    //     par,
+    //     kmlLink,
+    //     geoJsonLink,
+    //     projectType,
+    //     carbonCredits,
+    //     amountWorth,
+    //     address,
+    //     privateKey,
+    //   ].some((field) => field?.trim() === "")
+    // ) {
+    //   throw new ApiError(400, "All fields are required");
+    // }
 
-    const contract = await contractInstance(privateKey, address);
-
+    const contract = await contractInstance(privateKey, address, PROJECT_SMART_CONTRACT_ABI);
     const response = await contract.addProjectData(
       latitude,
       longitude,
@@ -209,8 +210,21 @@ export const addProjectDataHandle = async (req, res) => {
       carbonCredits,
       amountWorth
     );
+
     const tx = await response.wait()
-    console.log(tx);
+
+    let logs = tx.logs;
+    let events = logs.map((log) => {
+      return contract.interface.parseLog(log);
+    });
+
+    let projectCreatedEvents = events.filter((event) => {
+      return event.name === "ProjectDataAdded";
+    });
+
+    let projectCreatedEvent = projectCreatedEvents[0];
+    let projectId = projectCreatedEvent.args.projectId;
+    console.log("projectId ------------>", Number(projectId));
 
     return res
       .status(201)
@@ -273,7 +287,7 @@ export const updateProjectDataHandle = async(req, res)=>{
       throw new ApiError(400, "All fields are required");
     }
     
-    const contract = await contractInstance(privateKey, address);
+    const contract = await contractInstance(privateKey,address, PROJECT_SMART_CONTRACT_ABI);
 
     const response = await contract.updateProjectData(
       projectId,
@@ -296,7 +310,7 @@ export const updateProjectDataHandle = async(req, res)=>{
     console.log(tx);
     return res
     .status(201)
-    .json(new ApiResponse(200, {}, "Project data has been successfully updateds"));
+    .json(new ApiResponse(200, {}, "Project data has been successfully updated"));
 
   } catch (error) {
     console.log(`error while updating project data  ${error}`);
@@ -308,3 +322,36 @@ export const updateProjectDataHandle = async(req, res)=>{
     
   }
 }
+
+
+export const issueCertificate = async(req, res)=>{
+  try {
+    const {  projectId, uri} = req.body
+    console.log(req.body);
+    
+    const contractAddress ='0xF55acdf7768Bb90BE7d29068CEEd5B0578F0424E'
+    const address = '0x4F02C3102A9D2e1cC0cC97c7fE2429B9B6F5965D'
+    const privateKey = `fe2d1b12f7cb4f6aaf2953b8d1528bf9ee0329eb1d89f9b380cc595c05475a9d`
+
+    const contract = await contractInstance(privateKey, contractAddress, STORAGE_SMART_CONTRACT_ABI)
+    const response = await contract.issueCertificate(address, projectId, uri)
+    await response.wait()
+
+    return res
+    .status(201)
+    .json(new ApiResponse(200, {},`NFT created and transfer successfully`));
+
+    
+  } catch (error) {
+    console.log(`error while generating nft  ${error}`);
+    res.status(500).json({
+      sucess: false,
+      message: "error while generating nft",
+      error: error,
+    });
+    
+  }
+}
+
+
+

@@ -5,8 +5,8 @@ import {
   getProjectDataHandle,
   getCarbonAndNdviData,
   addProjectDataHandle,
-  updateProjectDataHandle
-
+  updateProjectDataHandle,
+  issueCertificate
 } from "../controllers/projectContract.controtllers.js";
 
 const router = Router();
@@ -16,6 +16,7 @@ router.route("/details").get(getProjectDataHandle)
 router.route("/carbon-ndvi").get(getCarbonAndNdviData)
 router.route("/addProjectData").post(addProjectDataHandle)
 router.route("/updateProject").post(updateProjectDataHandle)
+router.route("/nft").post(issueCertificate)
 
 
 export default router;

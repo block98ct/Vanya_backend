@@ -4,10 +4,9 @@ import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors"
 
+
 import cookieParser from "cookie-parser";
 import { JSON_LIMIT } from "./constants.js";
-
-
 
 const app = express();
 const PORT = process.env.PORT 
@@ -15,6 +14,8 @@ const PORT = process.env.PORT
 
 // console.log(PORT);
 
+// app.use('/temp', express.static(path.join(__dirname, '/public/temp')));
+// app.use(express.static(path.join(__dirname, '/public')));
 app.use(cors({
      origin: process.env.CORS_ORIGIN,
      credentials: true
@@ -24,7 +25,8 @@ app.use(bodyParser.json())
 app.use(express.json({limit:JSON_LIMIT}))
 app.use(express.urlencoded({extended:true, limit: JSON_LIMIT}))
 app.use(cookieParser())
-app.use(express.static("public"))
+app.use(express.static("src/public"))
+
 
 
 app.get("/", (req, res)=>{
@@ -43,12 +45,6 @@ app.use("/api/v1/project/", projectRoutes)
 
 
 
-//  USER ROUTES
-import userRoutes from "./routes/user.routes.js"
-app.use("/api/v1/user/", userRoutes)
-
-  
-
 // STORAGE CONTRACT ROUTES
 import storageContractRoutes from "./routes/storageContract.routes.js";
 app.use("/api/v1/storageContract/", storageContractRoutes)
@@ -56,7 +52,7 @@ app.use("/api/v1/storageContract/", storageContractRoutes)
 
 
 // APP IS LISTENING ON PORT 
-app.listen(PORT,"192.168.1.19",()=>{
+app.listen(PORT,()=>{
     console.log(`the server is running at port ${PORT}`)
     //192.168.1.29"
 })

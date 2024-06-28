@@ -1,5 +1,5 @@
 import { Router } from "express";
-import  { getOwnerHandle, isContractCreatedHandle}  from "../controllers/storeageContract.Controllers.js";
+import  { getOwnerHandle, isContractCreatedHandle, uploadMetaDataHandle}  from "../controllers/storeageContract.Controllers.js";
 
 const router = Router()
 
@@ -9,4 +9,5 @@ const router = Router()
 
 router.route('/owner').get(getOwnerHandle)
 router.route('/check-contract').post(isContractCreatedHandle)
+router.route('/uploadMetadata').post(uploadMetaDataHandle)
 export default router
