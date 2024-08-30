@@ -244,6 +244,16 @@ const ProjectData = sequelize.define('projects', {
       type: DataTypes.STRING(255),
       allowNull: true,
     },
+    projectId: {
+      type: DataTypes.INTEGER(255),
+      allowNull: true,
+    },
+
+    status: {
+      type: DataTypes.TINYINT(1),
+      allowNull: false,
+      defaultValue: '0',
+    }
   }, {
     timestamps: false, // Set to true if your table has `createdAt` and `updatedAt` fields
   }
