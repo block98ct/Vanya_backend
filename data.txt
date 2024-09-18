@@ -1,0 +1,17 @@
+email:aarif2@gmail.com
+password:aarif@123
+first_name:Aarif2
+last_name:Husain2
+country_code:+91
+phone:9303154902
+company_name:ctinfotech2
+vat_number:123402
+area:palasiya2
+industry:software2
+features:many features2
+status:1
+login_status:1
+street:221 B2
+city:indore2
+zip:452002
+country:india2

@@ -1,0 +1,45 @@
+{
+  "name": "vanya",
+  "version": "1.0.0",
+  "description": "vanya",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+    
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@ethereumjs/common": "^4.4.0",
+    "@ethereumjs/tx": "^5.4.0",
+    "@pinata/sdk": "^2.1.0",
+    "axios": "^1.6.7",
+    "base64url": "^3.0.1",
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.4.5",
+    "ethers": "^6.13.2",
+    "express": "^4.18.2",
+    "joi": "^17.12.2",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "mysql2": "^3.9.2",
+    "natural": "^6.10.5",
+    "nodemailer": "^6.9.10",
+    "nodemailer-express-handlebars": "^6.1.2",
+    "random-hash": "^4.0.1",
+    "sequelize": "^6.37.3",
+    "simple-spellchecker": "^1.0.2",
+    "web3": "^4.11.1"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-import-meta": "^2.2.1"
+  },
+  "plugins": [
+    "babel-plugin-transform-import-meta"
+  ]
+}
