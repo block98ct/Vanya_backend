@@ -7,7 +7,7 @@ module.exports={
     }),
     getFootRecipe:(async (data) => {
 
-        return db.query(`SELECT * FROM vanya_recipes WHERE LOWER(recipe) REGEXP \'.*${data}.*\'`);
+        return db.query(`SELECT * FROM vanya_recipes WHERE LOWER(recipe) REGEXP \'.*${data}.*\'`);   
     }),
     getCFromFirstView:(async (data)=>{
         return db.query(`SELECT * FROM first_view WHERE category REGEXP \'.*${data}.*\' GROUP BY activity_id`)
@@ -50,3 +50,4 @@ module.exports={
         `)
     }),
 }
+

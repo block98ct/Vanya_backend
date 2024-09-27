@@ -28,17 +28,22 @@ exports.contractInstance = async (privateKey, address, abi) => {
 
     return contract;
   } catch (error) {
-    console.log(error);
-    return res
-      .status(501)
-      .json(new ApiResponse(500, error, `Internal server error`));
+    console.log("error while generating contract Instance",error);
+  
   }
 };
 
 exports.getOwnerAddressHandle = async (req, res) => {
   try {
-    const { address } = req.query;
-    const response = await getOwner(address);
+    const {addr} = req.params;
+    // console.log("addr ------------>", addr)
+    const contract = await this.contractInstance(
+      privateKey,
+      addr,
+      PROJECT_SMART_CONTRACT_ABI
+    );
+    // console.log("contract -------------->", contract)
+    const response = await contract.owner();
     res.status(200).json({
       status: 200,
       success: true,
@@ -54,11 +59,15 @@ exports.getOwnerAddressHandle = async (req, res) => {
 
 exports.getCarbonAndNdviData = async (req, res) => {
   try {
-    const { time, address } = req.query;
+    const { time, addr } = req.query;
 
-    const carbonResp = await getCarbonData(time, address);
-    const ndviResp = await getNdviData(time, address);
+    const contract = await this.contractInstance(privateKey, addr, PROJECT_SMART_CONTRACT_ABI)
 
+    const carbonResp = await contract.carbonData(time);
+    const ndviResp = await contract.ndviData(time);
+    
+    // carbonData(time)
+    // ndviData(time)
     res.status(201).json(
       new ApiResponse(
         200,

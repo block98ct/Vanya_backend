@@ -59,10 +59,10 @@ exports.getNftsByAddressHandle = async(req, res)=>{
 }
 
 
-exports.getNftByAddressAndIdHandle = async(req, res)=>{
+exports.getNftByContractAddressAndIdHandle = async(req, res)=>{
   try {
     const {address, id} = req.query;
-    console.log(`opensea api >>>>>>>>>>>>>>>>>>> ${process.env.OPENSEA_API_KEY}`);
+    // console.log(`opensea api >>>>>>>>>>>>>>>>>>> ${process.env.OPENSEA_API_KEY}`);
     const schema = Joi.object({
       address: Joi.string()
         .pattern(/^0x[a-fA-F0-9]{40}$/)

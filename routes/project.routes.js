@@ -7,7 +7,7 @@ const upload = require("../utils/multer.js");
 
 
 router.post('/nftsByAddress', projectContractController.getNftsByAddressHandle);
-router.post('/nftByAddressAndId', projectContractController.getNftByAddressAndIdHandle);
+router.post('/nftByContractAddressAndId', projectContractController.getNftByContractAddressAndIdHandle);
 
 
 

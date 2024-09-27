@@ -34,7 +34,12 @@ const pinata = new pinataSDK(
 
 exports.getOwnerHandle = async (req, res) => {
   try {
-    const response = await getOwner();
+    const contract = await contractInstance(
+      privateKey,
+      storageAddress,
+      STORAGE_SMART_CONTRACT_ABI
+    );
+    const response = await contract.owner();
 
     res.status(201).json(new ApiResponse(200, response, "owner of contract"));
   } catch (error) {

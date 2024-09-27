@@ -4,7 +4,7 @@ const router = express.Router();
 const upload = require("../utils/multer.js");
 
 
-router.get('/owner',  projectContractController.getOwnerAddressHandle);
+router.get('/owner/:addr',  projectContractController.getOwnerAddressHandle);
 router.get('/symbol',  projectContractController.getSymbolHandle);
 //router.get('/details',  projectContractController.getProjectDataHandle);
 router.get('/carbon-ndvi',  projectContractController.getCarbonAndNdviData);
